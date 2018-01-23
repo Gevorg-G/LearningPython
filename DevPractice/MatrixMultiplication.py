@@ -1,6 +1,5 @@
 # Умножает друг на друга 2 матрицы
 
-
 # Инициализируем и заполняем матрицу
 def fillMatrix (rows, colums):
     matrix = [[0 for i in range(colums)] for j in range(rows)]
@@ -27,14 +26,8 @@ secondMatrixColumns = int(input("Введите число столбцов в �
 
 # Проверяем на согласованность: https://ru.wikipedia.org/wiki/%D0%A3%D0%BC%D0%BD%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BC%D0%B0%D1%82%D1%80%D0%B8%D1%86
 if firstMatrixColumns == secondMatrixRows:
-    multiplyOrder = 1
     finalMatrix = [[0 for i in range(secondMatrixColumns)] for j in range(firstMatrixRows)]
-    print ("Матрицы согласованы, первую умножаем на вторую\n")
-
-elif firstMatrixRows == secondMatrixColumns:
-    multiplyOrder = 2
-    finalMatrix = [[0 for i in range(secondMatrixRows)] for j in range(firstMatrixColumns)]
-    print ("Матрицы согласованы, вторую умножаем на первую\n")
+    print ("Матрицы согласованы\n")
 
 else:
     print ("Матрицы не согласованы\n")
