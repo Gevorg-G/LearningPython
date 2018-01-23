@@ -30,7 +30,7 @@ if firstMatrixColumns == secondMatrixRows:
     print ("Матрицы согласованы \n")
 
 else:
-    print ("Матрицы не согласованы \n")
+    print ("Матрицы не согласованы\n")
     quit()
 
 
