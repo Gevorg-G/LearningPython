@@ -11,6 +11,8 @@
 # "NORTH" and "WEST", "WEST" and "SOUTH", "SOUTH" and "EAST" are not directly opposite of each other and can't become such. 
 # Hence the result path is itself : ["NORTH", "WEST", "SOUTH", "EAST"].
 
+# Другие решения: https://www.codewars.com/kata/550f22f4d758534c1100025a/solutions/python
+
 def dirReduc(arr):
     # Массив с примерами
     sample = [["NORTH", "SOUTH"], ["SOUTH", "NORTH"], ["WEST", "EAST"], ["EAST", "WEST"]]
