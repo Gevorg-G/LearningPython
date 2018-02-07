@@ -15,8 +15,8 @@ import time
 def next_bigger(n):
     m = list(str(n))
 
-    for i in range(len(str(n))-1, 0 , -1):
-        arr = sorted(list(str(n)[len(str(n))-1-i:]))
+    for i in range(len(m)-1, 0 , -1):
+        arr = sorted(list(m[len(m)-1-i:]))
         for j in itertools.permutations(arr):
             if int(''.join(j)) > n:
                 return(int(''.join(j)))
