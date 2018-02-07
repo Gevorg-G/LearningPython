@@ -9,18 +9,35 @@
 # next_bigger(111)==-1
 # next_bigger(531)==-1
 
-import itertools
 import time
+s = time.time()
+from itertools import permutations
+print(time.time()-s)
 
 def next_bigger(n):
     m = list(str(n))
 
     for i in range(len(m)-1, 0 , -1):
         arr = sorted(list(m[len(m)-1-i:]))
-        for j in itertools.permutations(arr):
+        for j in permutations(arr):
             if int(''.join(j)) > n:
                 return(int(''.join(j)))
     return -1
+
+
+# def next_bigger(n):
+#     m = list(str(n))
+#     mp = list(int(''.join(l)) for l in itertools.permutations(m))
+    
+#     min_n = float("inf")
+#     for l in itertools.permutations(m):
+#         d = int(''.join(l))
+#         if d > n and d < min_n:
+#             min_n = d
+    
+#     if min_n == n or float("inf") == min_n:
+#         return -1
+#     return min_n
 
 start = time.time()
 print(next_bigger(1234567890))
