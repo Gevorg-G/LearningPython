@@ -10,15 +10,18 @@
 # next_bigger(531)==-1
 
 import itertools
+import time
 
 def next_bigger(n):
-    m = sorted(list(str(n)))
-    b = -1
-    for i in itertools.permutations([x for x in m], len(str(n))):
-        print (i)
-        a = int(''.join(i))
-        if a > n and (a < b or b == -1):
-            return a
-    return b
+    m = list(str(n))
 
+    for i in range(len(str(n))-1, 0 , -1):
+        arr = sorted(list(str(n)[len(str(n))-1-i:]))
+        for j in itertools.permutations(arr):
+            if int(''.join(j)) > n:
+                return(int(''.join(j)))
+    return -1
+
+start = time.time()
 print(next_bigger(1234567890))
+print (time.time()-start)
