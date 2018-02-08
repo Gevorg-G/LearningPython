@@ -9,36 +9,33 @@
 # next_bigger(111)==-1
 # next_bigger(531)==-1
 
-import time
-s = time.time()
-from itertools import permutations
-print(time.time()-s)
-
 def next_bigger(n):
+    # Делим число на список символов
     m = list(str(n))
 
-    for i in range(len(m)-1, 0 , -1):
-        arr = sorted(list(m[len(m)-1-i:]))
-        for j in permutations(arr):
-            if int(''.join(j)) > n:
-                return(int(''.join(j)))
+    # Ходим по списку с конца — это оптимальный способ найти следующее число, которое минимально больше входящего
+    # Начинаем с подстроки в 2 символа, заканчиваем подстрокой в длину числа
+    for i in range(len(m)-2, -1 , -1):
+        # Делаем отсортированный список из уникальных элементов по текущей строке
+        substringSet = sorted(list(set(m[i:])))
+        # Получаем индекс первого элемента подстроки в этом списке
+        indexOfSubstringFirstElement = substringSet.index(m[i])
+        
+        # Это просто отсортированная подстрока. В будущем она понадобится для склейки
+        substringSorted = sorted(m[i:])
+        
+        # Проверяем не является ли первый символ в подстроке последним символом substringSet
+        if indexOfSubstringFirstElement != len(substringSet) - 1:
+            # Если это не так, то тогда мы из набора уникальных цифр берём следующее цифру, которая больше текущей
+            biggerDigit = substringSet[substringSet.index(m[i])+1]
+            # Удаляем символ, который будем ставить в начало подстроки из substringSorted
+            substringSorted.remove(biggerDigit)
+            # Склеиваем строку
+            # ''.join(m[:i]) — это левая часть числа, которая не входит в рассматриваемую подстроку
+            # biggerDigit — цифра, которая позволит нам получить минимальное число, большее, чем входящее
+            # ''.join(substringSorted) — оставшийся кусок числа, без biggerDigit
+            numberToCompare = int(''.join(m[:i]) + biggerDigit + ''.join(substringSorted))
+            return numberToCompare
     return -1
 
-
-# def next_bigger(n):
-#     m = list(str(n))
-#     mp = list(int(''.join(l)) for l in itertools.permutations(m))
-    
-#     min_n = float("inf")
-#     for l in itertools.permutations(m):
-#         d = int(''.join(l))
-#         if d > n and d < min_n:
-#             min_n = d
-    
-#     if min_n == n or float("inf") == min_n:
-#         return -1
-#     return min_n
-
-start = time.time()
-print(next_bigger(1234567890))
-print (time.time()-start)
+print(next_bigger(12))
