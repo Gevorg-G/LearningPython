@@ -56,13 +56,13 @@ def calc(expr):
             
             # Смотрим какое арифметическое действие нам надо выполнить
             if notation[minIndex] == '+':
-                notation[minIndex] = str(intOrFloat(str(firstOperand + secondOperand)))
+                notation[minIndex] = str(firstOperand + secondOperand)
             elif notation[minIndex] == '-':
-                notation[minIndex] = str(intOrFloat(str(firstOperand - secondOperand)))
+                notation[minIndex] = str(firstOperand - secondOperand)
             elif notation[minIndex] == '/':
-                notation[minIndex] = str(intOrFloat(str(firstOperand / secondOperand)))
+                notation[minIndex] = str(firstOperand / secondOperand)
             elif notation[minIndex] == '*':
-                notation[minIndex] = str(intOrFloat(str(firstOperand * secondOperand)))
+                notation[minIndex] = str(firstOperand * secondOperand)
             notation.pop(minIndex-1)
             notation.pop(minIndex-2)
         return intOrFloat(notation[-1])
