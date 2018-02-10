@@ -23,49 +23,28 @@ def intOrFloat(s):
         return math.floor(float(s))
 
 def calc(expr):
-    # Если список пустой возвращаем 0 и показываем соответствующее сообщение
-    if not expr:
-        print ("Empty expression")
-        return 0
-    
-    # Если всё же надо поработать — делим строку на список
-    notation = expr.split(sep=' ')
+  # Делим строку на символы
+  # Забавная вещь — этот же самый код не работает, если написать expr.split(' ')
+  notation = expr.split()
+  # Создаём промежуточный массив
+  # 0 нужен на случай передачи пустой строки
+  resultingArray = [0]
 
-    # Если строка длиной в 1 элемент, то возвращаем этот элемент
-    if len(notation) == 1:
-        # Проверяем этот единственный элемент — целое или дробное число и возвращаем результат
-        return intOrFloat(notation[-1])
-
-    # Проверяем есть ли вообще операторы в списке
-    isThereAnyOperators = 0
-    for i in operators:
-        if i in notation:
-            isThereAnyOperators = 1
-    
-    if isThereAnyOperators == 1:
-        while len(notation) != 1:
-            # Ищем индекс минимального оператора
-            minIndex = -1
-            for i in operators:
-                if i in notation and (notation.index(i) < minIndex or minIndex == -1):
-                    minIndex = notation.index(i)
-            
-            # Записываем наши операнды
-            secondOperand = intOrFloat(notation[minIndex - 1])
-            firstOperand = intOrFloat(notation[minIndex - 2])
-            # Записываем операцию
-            operation = operators.get(notation[minIndex])
-
-            # Делаем нашу операцию
-            notation[minIndex] = operation(firstOperand, secondOperand)
-
-            # Удаляем ставшие лишними символы
-            notation.pop(minIndex-1)
-            notation.pop(minIndex-2)
-            
-        return intOrFloat(notation[-1])
+  # Ходим по символам
+  for i in notation:
+    # Если символ является оператором
+    if i in operators:
+      # То из промежуточного массива вытаскиваем операнды. 
+      # Сначала второй, потом первый, потому что pop() удаляем из конца
+      secondOperand = resultingArray.pop()
+      firstOperand = resultingArray.pop()
+      # Считаем, вытаскивая операцию из словаря
+      resultingArray.append(operators[i](firstOperand, secondOperand))
     else:
-        return intOrFloat(notation[-1])
+      # Если же это не оператор, а операнд, то записываем его в массив
+      resultingArray.append(intOrFloat(i))
+  # В итоге вытаскиваем последний элемент массива, который и будет искомым результатом
+  return resultingArray.pop()
 
 print(calc(""))
 print(calc("1 2 3"))
@@ -74,3 +53,4 @@ print(calc("1 3 +"))
 print(calc("1 3 *"))
 print(calc("1 3 -"))
 print(calc("4 2 /"))
+print(calc("5 1 2 + 4 * + 3 -"))
