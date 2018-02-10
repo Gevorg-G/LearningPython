@@ -8,7 +8,7 @@
 import math
 import operator
 
-operators = ['+', '-', '/', '*']
+operators = {'+': operator.add, '-': operator.sub, '/': operator.truediv, '*': operator.mul}
 
 # Функция проверяет целое или дробное ли число на входе и возвращает в соответствующем типе
 def intOrFloat(s):
@@ -53,18 +53,16 @@ def calc(expr):
             # Записываем наши операнды
             secondOperand = intOrFloat(notation[minIndex - 1])
             firstOperand = intOrFloat(notation[minIndex - 2])
-            
-            # Смотрим какое арифметическое действие нам надо выполнить
-            if notation[minIndex] == '+':
-                notation[minIndex] = str(firstOperand + secondOperand)
-            elif notation[minIndex] == '-':
-                notation[minIndex] = str(firstOperand - secondOperand)
-            elif notation[minIndex] == '/':
-                notation[minIndex] = str(firstOperand / secondOperand)
-            elif notation[minIndex] == '*':
-                notation[minIndex] = str(firstOperand * secondOperand)
+            # Записываем операцию
+            operation = operators.get(notation[minIndex])
+
+            # Делаем нашу операцию
+            notation[minIndex] = operation(firstOperand, secondOperand)
+
+            # Удаляем ставшие лишними символы
             notation.pop(minIndex-1)
             notation.pop(minIndex-2)
+            
         return intOrFloat(notation[-1])
     else:
         return intOrFloat(notation[-1])
