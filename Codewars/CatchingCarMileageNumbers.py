@@ -12,6 +12,7 @@ def isGood(number, awesome_phrases):
     else:
         return 0
 
+
 def is_interesting(number, awesome_phrases):
     result = []
     
@@ -22,7 +23,6 @@ def is_interesting(number, awesome_phrases):
 
     for i in range(0, 3):
         result = isGood(number+i, awesome_phrases)
-
         if result == 2 and i == 0:
             return 2
         elif result == 2 and i > 0:
